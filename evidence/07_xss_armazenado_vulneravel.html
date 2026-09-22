@@ -1,0 +1,92 @@
+<!doctype html><html lang="pt-br"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prontuário</title>
+<style>:root{--bg:#0f1720;--card:#17212b;--ink:#e7edf3;--muted:#8aa0b3;--acc:#3da9fc;--ok:#2ecc71;--warn:#f1c40f;--bad:#e74c3c;--line:#26333f}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
+header .brand{font-weight:700;letter-spacing:.3px}
+header .brand span{color:var(--acc)}
+nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-size:14px}
+nav a:hover{color:var(--ink)}
+.container{max-width:920px;margin:26px auto;padding:0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:18px}
+h1{font-size:22px;margin:.2em 0}h2{font-size:17px;margin:.2em 0 .6em}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:#0e1620;color:var(--ink);font-size:14px}
+textarea{min-height:90px;resize:vertical}
+button,.btn{display:inline-block;margin-top:12px;padding:10px 16px;border:0;border-radius:8px;background:var(--acc);color:#04121f;font-weight:600;cursor:pointer;text-decoration:none;font-size:14px}
+button:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600}
+.badge.ok{background:rgba(46,204,113,.15);color:var(--ok)}
+.badge.bad{background:rgba(231,76,60,.15);color:var(--bad)}
+.mode{font-size:12px;padding:3px 10px;border-radius:20px}
+.mode.vuln{background:rgba(231,76,60,.18);color:var(--bad)}
+.mode.safe{background:rgba(46,204,113,.15);color:var(--ok)}
+.flash{background:rgba(61,169,252,.12);border:1px solid var(--acc);padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.muted{color:var(--muted);font-size:13px}
+code{background:#0e1620;padding:2px 6px;border-radius:5px;font-size:13px}
+.note{background:#0e1620;border-left:3px solid var(--acc);padding:10px 12px;border-radius:0 8px 8px 0;margin:8px 0}
+</style>
+</head><body>
+<header>
+  <div class="brand">Secure<span>AI</span> Lab · Clínica</div>
+  <nav>
+    
+      <a href="/">Início</a>
+      <a href="/triagem">Triagem IA</a>
+      
+      <a href="/logout">Sair</a>
+    
+  </nav>
+</header>
+<div class="container">
+  
+    
+  
+  
+<div class="card">
+  <h1>Prontuário — Ana Souza Lima</h1>
+  <p class="muted">CPF: ***.***.90-9... (mascarado) · Diagnóstico: Hipertensão arterial estágio 1</p>
+  <p>Modo: <span class="mode vuln">VULNERÁVEL</span></p>
+</div>
+
+<div class="card">
+  <h2>Exames</h2>
+  <table><tr><th>Arquivo</th><th>SHA-256</th><th>Enviado</th><th></th></tr>
+  <tr><td colspan="4" class="muted">Nenhum exame.</td></tr>
+  </table>
+  <form method="post" action="/paciente/1/exame" enctype="multipart/form-data">
+    <label>Enviar exame (.pdf .png .jpg .txt, máx 2MB)</label>
+    <input type="file" name="file">
+    <button type="submit">Enviar exame</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Anotações clínicas</h2>
+  
+    <div class="note">
+      <div class="muted">dra.nigro · 2026-09-16T12:25:02</div>
+      
+      <b style='color:red'>ANOTACAO INJETADA</b><script>document.title='xss'</script>
+    </div>
+  
+    <div class="note">
+      <div class="muted">dra.nigro · 2026-09-16T12:25:01</div>
+      
+      Retorno em 30 dias. Manter medicação.
+    </div>
+  
+  <form method="post" action="/paciente/1/nota">
+    <label>Nova anotação</label><textarea name="body"></textarea>
+    <button type="submit">Salvar anotação</button>
+  </form>
+</div>
+
+</div>
+</body></html>

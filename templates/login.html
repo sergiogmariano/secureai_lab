@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block body %}
+<div class="card" style="max-width:420px;margin:40px auto">
+  <h1>Entrar</h1>
+  <p class="muted">Modo atual:
+    {% if vulnerable %}<span class="mode vuln">VULNERÁVEL</span>{% else %}<span class="mode safe">SEGURO</span>{% endif %}
+  </p>
+  <form method="post">
+    <label>Usuário</label><input name="username" autofocus>
+    <label>Senha</label><input name="password" type="password">
+    <button type="submit">Acessar</button>
+  </form>
+  <p class="muted" style="margin-top:16px">Contas de teste:<br>
+  dra.nigro / Admin@Clinica2025 (admin)<br>
+  ana.paciente / AnaSenha@123 (paciente)</p>
+</div>
+{% endblock %}

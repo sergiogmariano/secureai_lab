@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Triagem IA{% endblock %}
+{% block body %}
+<div class="card">
+  <h1>Triagem de sintomas (IA)</h1>
+  <p class="muted">Descreva seus sintomas. A IA classifica a urgência. Modo:
+  {% if vulnerable %}<span class="mode vuln">VULNERÁVEL</span>{% else %}<span class="mode safe">SEGURO</span>{% endif %}</p>
+  <form method="post"><label>Sintomas</label>
+    <textarea name="sintomas" placeholder="Ex.: febre há 2 dias e dor de cabeça"></textarea>
+    <button type="submit">Avaliar</button>
+  </form>
+  {% if resultado %}
+    <div class="note" style="margin-top:16px">
+      {% if resultado.bloqueado %}<span class="badge bad">BLOQUEADO</span> {{ resultado.motivo }}<br>{% endif %}
+      {{ resultado.resposta }}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

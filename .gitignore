@@ -1,0 +1,9 @@
+# Segredos e chaves — NUNCA versionar
+keys/
+instance/
+*.db
+uploads/*
+!uploads/.gitkeep
+__pycache__/
+*.pyc
+.env

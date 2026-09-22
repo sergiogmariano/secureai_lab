@@ -1,0 +1,39 @@
+{% extends "base.html" %}{% block title %}Prontuário{% endblock %}
+{% block body %}
+<div class="card">
+  <h1>Prontuário — {{ pat.full_name }}</h1>
+  <p class="muted">CPF: {{ cpf }} · Diagnóstico: {{ diagnosis }}</p>
+  <p>Modo: {% if vulnerable %}<span class="mode vuln">VULNERÁVEL</span>{% else %}<span class="mode safe">SEGURO</span>{% endif %}</p>
+</div>
+
+<div class="card">
+  <h2>Exames</h2>
+  <table><tr><th>Arquivo</th><th>SHA-256</th><th>Enviado</th><th></th></tr>
+  {% for e in exams %}
+    <tr><td>{{ e.filename }}</td><td><code>{{ e.sha256[:16] }}…</code></td>
+    <td class="muted">{{ e.uploaded_at[:19] }}</td>
+    <td><a class="btn ghost" href="{{ url_for('download_exame', eid=e.id) }}">Baixar</a></td></tr>
+  {% else %}<tr><td colspan="4" class="muted">Nenhum exame.</td></tr>{% endfor %}
+  </table>
+  <form method="post" action="{{ url_for('upload_exame', pid=pat.id) }}" enctype="multipart/form-data">
+    <label>Enviar exame (.pdf .png .jpg .txt, máx 2MB)</label>
+    <input type="file" name="file">
+    <button type="submit">Enviar exame</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Anotações clínicas</h2>
+  {% for n in notes %}
+    <div class="note">
+      <div class="muted">{{ n.author }} · {{ n.created_at[:19] }}</div>
+      {# XSS: no modo vulnerável renderiza cru (|safe); no seguro, escapado. #}
+      {% if vulnerable %}{{ n.body|safe }}{% else %}{{ n.body }}{% endif %}
+    </div>
+  {% else %}<p class="muted">Sem anotações.</p>{% endfor %}
+  <form method="post" action="{{ url_for('add_note', pid=pat.id) }}">
+    <label>Nova anotação</label><textarea name="body"></textarea>
+    <button type="submit">Salvar anotação</button>
+  </form>
+</div>
+{% endblock %}

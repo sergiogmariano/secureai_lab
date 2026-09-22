@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Auditoria{% endblock %}
+{% block body %}
+<div class="card">
+  <h1>Log de auditoria (assinado com RSA)</h1>
+  <p class="muted">Cada linha é assinada digitalmente. Verificação usa a chave pública.</p>
+  <table><tr><th>Quando</th><th>Ator</th><th>Ação</th><th>Detalhe</th><th>Assinatura</th></tr>
+  {% for r, ok in rows %}
+    <tr><td class="muted">{{ r.ts[:19] }}</td><td>{{ r.actor }}</td><td>{{ r.action }}</td>
+    <td class="muted">{{ r.detail }}</td>
+    <td>{% if ok %}<span class="badge ok">VÁLIDA</span>{% else %}<span class="badge bad">ADULTERADA</span>{% endif %}</td></tr>
+  {% endfor %}
+  </table>
+</div>
+{% endblock %}
